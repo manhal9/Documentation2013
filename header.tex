@@ -1,0 +1,116 @@
+%
+%	Headerdatei der Bachelorarbeit
+%
+
+%	KOMA-Script Dokumentklasse "scrbook"
+\documentclass[12pt, pdftex, a4paper, ngerman, bibliography=totoc, listof=totoc, parskip=half]{scrreprt}
+
+%%%% === Verzeichnisse (TOC, LOF, LOT, BIB) ===
+   %liststotoc,      % Tabellen & Abbildungsverzeichnis ins TOC
+   %idxtotoc,        % Index ins TOC
+   %bibtotoc,         % Bibliographie ins TOC
+   %bibtotocnumbered, % Bibliographie im TOC nummeriert
+   %liststotocnumbered, % Alle Verzeichnisse im TOC nummeriert 
+   
+  
+\usepackage{color} 
+
+%Tabellen- und Bildunterschriften formatieren
+\addtokomafont{caption}{\small\bfseries}
+\addtokomafont{captionlabel}{\bfseries}
+ 
+%	Zeilenabstand
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{geometry}
+\geometry{a4paper,left=35mm,right=25mm,%
+bottom=25mm,top=25mm,bindingoffset=5mm,%
+includehead,includefoot
+}
+
+\usepackage{varioref}
+\usepackage{url}
+
+%	Paket zum Übersetzen
+\usepackage[ngerman]{babel}
+
+% Eingabe von Umlauten
+\usepackage[latin1]{inputenc}
+
+%	Verwenden von T1 Fonts
+\usepackage[T1]{fontenc}
+
+%	Einrichten der Quotes
+\usepackage[autostyle,german=quotes]{csquotes}
+
+\usepackage{lmodern}
+
+%PDF Version 1.6
+\pdfminorversion=6
+
+%Einbinden von Grafiken
+\usepackage{graphicx}
+
+%Einbinden von Grafiken in Tabellen
+\usepackage{picins}
+\usepackage{array}
+
+%Einbinden von Grafiken in Tabellen HIER
+%\usepackage{here}
+
+%Tabellen
+\usepackage{booktabs}
+
+\usepackage{tocbasic}
+
+%Benutzen eines Literaturverzeichnisses
+\usepackage[backend=bibtex8,style=numeric]{biblatex}		%alphabetic %authoryear-icomp
+ %numeric %authortitle-tcomp
+\bibliography{libarchive}
+
+%Fußnoten durchlaufend nummerieren
+\usepackage{chngcntr}
+\counterwithout{footnote}{chapter}
+
+
+
+\pagestyle{headings}
+% Eigene Kopfzeile
+%\usepackage{scrpage2}
+%\pagestyle{scrheadings}
+%\automark[section]{chapter}
+
+%-----------Abkürzungsverzeichnis---------------
+
+\usepackage[intoc]{nomencl}
+% Befehl umbenennen in abk
+\let\abk\nomenclature
+% Deutsche Überschrift
+\renewcommand{\nomname}{Abkürzungsverzeichnis}
+% Punkte zw. Abkürzung und Erklärung
+\setlength{\nomlabelwidth}{.20\hsize}
+\renewcommand{\nomlabel}[1]{#1 \dotfill}
+% Zeilenabstände verkleinern
+\setlength{\nomitemsep}{-\parsep}
+\makenomenclature
+
+%-----------------------------------------------
+
+%----------------------------------
+%----------Neue Kommandos----------
+%----------------------------------
+
+\newcommand{\myabb}[1]{Abbildung~\ref{#1}}
+\newcommand{\mytab}[1]{Tabelle~\vref{#1}}
+
+%----------------------------------
+%----------------------------------
+%----------------------------------
+
+
+\usepackage{enumitem}
+
+%
+%	EOF
+%

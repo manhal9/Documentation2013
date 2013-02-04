@@ -1,0 +1,61 @@
+\chapter{introduction}
+\section{Background}
+Modern information and communication technologies are widely used in almost every field.  It has also influenced the environmental science.
+
+\section{Project Goals}
+A more universal approach to describe environmental models is needed. A domain specific language was proposed as a solution to this need. A plain DSL will not be enough to solve all problems involved in describing an environmental model in such ways that it can be fully described and exchanged without additional information. The following features were defined as necessary for a language/system that allows to fully describe and exchange models:
+
+\begin{itemize}
+	\item Domain-specific data structures
+	\item Rich model interfaces
+	\item DSL handling typical operations
+	\item Support for different modeling paradigms and frameworks
+	\item Account for modeling uncertainty
+	\item Model transparency and defensibility of results
+\end{itemize}
+
+After the first step of information gathering the group decided to organize the features by priorisation and practicability, to decided which goals are achievable in the given time.\\
+The following order was defined:\\
+\emph{priority 1}
+\begin{itemize}
+	\item Domain-specific data structures
+	\item DSL definition with typical operations
+	\item Account for modeling uncertainty
+\end{itemize}
+
+\emph{priority 2}
+\begin{itemize}
+	\item Rich model interfaces
+	\item Model transparency and defensibility of results
+\end{itemize}
+
+\emph{priority 3}
+\begin{itemize}
+	\item Support for different modeling paradigms and frameworks
+\end{itemize}
+
+As a result of the lack of practical modelling experience the group decided that an universal approach of these feature is not practical. A more practical approach was decided. To gather experience a concrete model will be implemented with different frameworks and then a DSL will be defined with the necessary expressions to implement this model including the ontologies for the data used in the model. With the time given the other features mentioned in the priority list above will only be worked on in a conceptual way.
+A detailed description of the project proceeding is shown in the paragraph.
+
+
+\section{Project Proceeding}
+\subsection{Step 1 - Information Phase}
+In this phase the project participants have to do literature research on environmental modelling in general, and the state of the art of modeling environments in special.
+Several modeling environments are under closer examination to get an idea of how the modeling process looks like and what features will be needed in a DSL.
+
+\subsection{Step 2 - Designing an DSL}
+With the gathered information from step 1, a Domain specific language (or something alternative) shall be designed that enables modelers to define their models in an intuitive way.
+This step shall be based on sample model (not to complex, not to simple). And just for one modeling paradigm. The decision for a concrete example must be chosen from a wide used modeling paradigm.
+
+\begin{itemize}
+\item \emph{Step 2.1 - Ontology based data types}\\
+The first step is to find out if there are already ontologies witch define datatypes that can be used in models. If there are, they must be analysed for their value for this project.
+Next a mechanism is needed to dynamically import data types, characterized by ontologies, to parametrize the dsl.
+\item \emph{Step 2.2 - DSL development}\\
+With the experience gathered in the former steps a DSL must be defined with the necessary capability to implement the example model.The modeling uncertainty problem must be considered when implementing the DSL and the data types.
+\item \emph{Step 2.3 Concrete Implementation}\\
+Some kind of toolchain will be necessary to implement the concrete model with the defined DSL and data types definitions.
+\end{itemize}
+
+\subsection{Step 3 - Conceptual work}
+After the implementation conceptual work will be done on the features with priority 2 and 3.
