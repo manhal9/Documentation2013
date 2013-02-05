@@ -22,7 +22,7 @@ Simile is a visual modelling environment, developed originally for the dynamic m
 	\subsubsection{Visual modelling:}
 Simile supports a two-phase approach to model construction. The first involves the drawing of diagrams that show the main features of the model and the second involves fleshing-out the model-diagram elements with quantitative information on the relevant values and equations.
 	\subsubsection{System Dynamics:}
-Simile allows models to be formulated in System Dynamics terms, as compartments (stocks, levels) whose values are governed by flows in and out. This can be considered as a visual language for representing differential-equation models, with a compartment representing a state variable, and the rate-of-change being the net sum of inflows minus outflows. Although this is the primary method of representing dynamics within Simile models, it is not elaborated here because it is not directly relevant to issues of spatial representation.
+Simile allows models to be formulated in System Dynamics terms, as compartments (stocks, levels) whose values are governed by flows in and out. This can be considered as a visual language for representing differential-equation models, with a compartment representing a state variable, and the rate-of-change being the net sum of inflows minus outflows.
 	\subsubsection{Disaggregation:}
 Simile allows the modeller to express many forms of disaggregation: e.g. age/size/sex/species classes. This is achieved by defining how one class behaves, then specifying that there are many such classes.
 	\subsubsection{Object-based modelling:}
@@ -65,6 +65,10 @@ To say that (A influences B) means that A is used to calculate a value for B
 \caption{the model diagram}
 \label{fig:the model diagram}	
 \end{figure}
+
+In common with other visual modelling environments, Simile models are built in two phases. First, the modeller produces a diagram. Then, the modeller quantifies the model by entering numeric values and equations for the various components of the model.\\
+The diagramming icons are chosen from the Toolbar of simile, the compartment, flow, variable and influence, are concerned with conventional System Dynamics modelling.\\
+System Dynamics (SD) is a common dynamic modelling paradigm within the ecological and environmental research communities. A SD model consists of compartments (stocks, levels, storages) connected by flows, with subsidiary variables for representing parameters and intermediate variables, and influence arrows to show which compartments and variables are used in the calculation of flows and other variables. Essentially, SD is a cosmetic language for defining differential- or difference-equation models: differential equations if the equations are taken to define continuous change; difference equations if the time step is taken to be unity.
 
 \emph{Concern following problems of simile:}
 \begin{itemize}
