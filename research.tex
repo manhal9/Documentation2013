@@ -1,8 +1,8 @@
 \chapter{Research Phase}
-\section{current modeling environments}
+\section{Current Modeling Environments}
 
-\subsection{simile (Simile Visual Modelling Environment)}
-Simile is a visual modelling environment, developed originally for the dynamic modelling of ecological and environmental systems, which supports a wide range of ways of representing space. Therefore, it addresses both of the above issues in a single environment.\footnote{http://www.simulistics.com/index.htm and Book: Re-presenting GIS from Peter Fisher}
+\subsection{Simile (Simile Visual Modelling Environment)}
+Simile is a visual modelling environment, developed originally for the dynamic modelling of ecological and environmental systems, which supports a wide range of ways of representing space. Therefore, it addresses both of the above issues in a single environment.
 
 \emph{Visual modeling environment}
 \begin{itemize}
@@ -18,7 +18,25 @@ Simile is a visual modelling environment, developed originally for the dynamic m
 	\item Scenario analysis, for example: Effect of flow velocity on gas exchange between  river-atmosphere
 \end{itemize}
 
-\emph{Simile has a number of features:}
+\emph{Technical implementation:}\\
+\emph{Architecture}\\
+The following diagram shows the main components of Simile, and how they relate to each
+other.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{pics/Simile_architecture.png}
+\caption{Simile Architecture}
+\label{fig:Simile Architecture}	
+\end{figure}
+
+In the middle-left, the user interacts with Simile through a graphical user interface (GUI) to edit the model diagram and equations. In the process, Simile builds up an internal representation of the model, which may contain submodels. The model or a submodel 
+(submodel will be explained later) can be saved to file (.sml extension) (arrows going to the top and to the right). Also, a model or a submodel can be loaded from file (arrows coming in from top and right).\\
+To run a model, the internal representation is used to generate a program in tcl (Tool command language) or C. (In fact, not shown here is that in C Simile first generates the source code, then compiles it as a DLL (Data Definition Language)). This program can also be saved to file, it is possible to run a previously-built model as a stand-alone executable without having access to the Simile environment. The program may then need to be combined with external data sets, containing parameter and tabulated values. After run, Simile calls on various display tools to show the results of the simulation. The displayed results of the simulation may then be exported, along with the model diagram, to produce a postscript file that can be used to produce a handout or poster about the modelling exercise.\\
+At the top-right of the diagram, you will notice that the saved model can be used to generate an html description of the model. This is handled by a program (written in Prolog) that is totally independent of Simile itself. The html generator is the first of many such tools, and ultimately we envisage that many groups around the world will be writing their own for processing Simile models in new and useful ways.
+
+\emph{Properties of the modeling:}\\
+Simile has a number of features
 	\subsubsection{Visual modelling:}
 Simile supports a two-phase approach to model construction. The first involves the drawing of diagrams that show the main features of the model and the second involves fleshing-out the model-diagram elements with quantitative information on the relevant values and equations.
 	\subsubsection{System Dynamics:}
@@ -48,16 +66,41 @@ In fact, Simile has no particular spatial representations built into it, rather 
 \end{itemize}	
 	
 \emph{System Dynamics symbols}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{pics/Simile_symbols.png}
+\caption{Simile Symbols}
+\label{fig:Simile Symbols}	
+\end{figure}
+
 \begin{itemize}
-	\item \emph{compartment:}\\
+	\item \emph{compartment :}\\
 The compartment symbol is used to represent a quantitative state variable
+	\item \emph{Variable :}\\
+A variable is used to hold one or more values. The value or values come from a mathematical expression
+	\item \emph{Submodel :}\\
+In Simile, a submodel is a round-cornered box that encloses a number of model-design symbols, including possibly other submodels
 	\item \emph{Flow arrow:}\\
 The flow arrow is used to specify a term contributing to the rate of change of a compartment
-	\item \emph{Variable:}\\
-A variable is used to hold one or more values. The value or values come from a mathematical expression
 	\item \emph{Influence arrow :}\\
 To say that (A influences B) means that A is used to calculate a value for B
+	\item \emph{Role arrow :}\\
+Role arrows are usually used in pairs, with each arrow going from a submodel to a submodel. The combination of submodels and role arrows is used to denote an association between the objects represented by the submodels at the start of each role arrow
+	\item \emph{Condition :}\\
+A condition element is placed inside a submodel to indicate that the existence of the submodel depends on some condition
+	\item \emph{Initial-number :}\\
+The initial-number element is used to specify the initial number of members in a population of objects
+	\item \emph{Migrator :}\\
+The migrator element is used to specify the rate at which new members of a population are created
+	\item \emph{Reproducer :}\\
+The reproducer element is used to specify the rate at which each member of a population creates new members
+\item \emph{Exterminator :}\\
+The mortality element is used to specify the rule for killing off a member of a population of objects
 \end{itemize}	
+
+In common with other visual modelling environments, Simile models are built in two phases. First, the modeller produces a diagram. Then, the modeller quantifies the model by entering numeric values and equations for the various components of the model.\\
+The diagramming icons are chosen from the Toolbar of simile, the compartment, flow, variable and influence, are concerned with conventional System Dynamics modelling, see the following diagram\\
 
 \begin{figure}[htbp]
 \centering
@@ -66,16 +109,14 @@ To say that (A influences B) means that A is used to calculate a value for B
 \label{fig:the model diagram}	
 \end{figure}
 
-In common with other visual modelling environments, Simile models are built in two phases. First, the modeller produces a diagram. Then, the modeller quantifies the model by entering numeric values and equations for the various components of the model.\\
-The diagramming icons are chosen from the Toolbar of simile, the compartment, flow, variable and influence, are concerned with conventional System Dynamics modelling.\\
-System Dynamics (SD) is a common dynamic modelling paradigm within the ecological and environmental research communities. A SD model consists of compartments (stocks, levels, storages) connected by flows, with subsidiary variables for representing parameters and intermediate variables, and influence arrows to show which compartments and variables are used in the calculation of flows and other variables. Essentially, SD is a cosmetic language for defining differential- or difference-equation models: differential equations if the equations are taken to define continuous change; difference equations if the time step is taken to be unity.
+System Dynamics (SD) is a common dynamic modelling paradigm within the ecological and environmental research communities. A SD model consists of compartments (stocks, levels, storages) connected by flows, with subsidiary variables for representing parameters and intermediate variables, and influence arrows to show which compartments and variables are used in the calculation of flows and other variables. Essentially, SD is a cosmetic language for defining differential- or difference-equation models: differential equations if the equations are taken to define continuous change; difference equations if the time step is taken to be unity.\footnote{http://www.simulistics.com/index.htm and Book: Re-presenting GIS from Peter Fisher}
 
-\emph{Concern following problems of simile:}
+\emph{Concern following problems of simile}
 \begin{itemize}
 	\item effort and skill needed to program the models
 	\item the lack of transparency in models implemented as programs
-	\item and the lack of reuseability of models and submodels.
-\end{itemize}	
+	\item and the lack of reuseability of models and submodels
+\end{itemize}
 	
 \subsection{esmf (Earth System Modeling Framework)}
 \emph{What ESMF is being developed?}\\
