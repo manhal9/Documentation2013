@@ -1,0 +1,63 @@
+\chapter{Vision of DSL}
+
+This chapter describes the, above mentioned, features for a modeling environment. They were initially proposed by Athanasiadis~\autocite{dsl:ioannis}, and are further explained in the following sections.
+
+\section{Domain-specific data structures}
+
+Domain-specific data structures can be used by the modeler to semantically describe the following elements in the DSL.
+
+\begin{itemize}
+	\item units and quantities
+	\item accuracy
+	\item spatial and temporal scales and extents
+	\item quality and provenance information of data sources and results
+\end{itemize}
+
+The newly created models will consist of independent logical models and their observations. This is a novel approach, as it is a semantical representation of environmental data sets. In other words, the code for one entity is logically capsulated and separated from other entities.
+
+The main idea to achieve this, is to connect the DSL with specific environmental modelling ontologies, as these define the semantics of the environmental terminology.
+
+\section{Rich model interfaces}
+
+Rich model interfaces should allow the modeler to share their models in scientific workflows. Therefore the models must be enriched with the following metadata in machine-readable formats.
+
+\begin{itemize}
+	\item incorporating model assumptions
+	\item pre- and post- conditions
+	\item prerequisites for reuse
+\end{itemize}
+
+\section{DSL handling typical operations}
+
+To simplify the modelers work the DSL should be able to automate typical operations, among this:
+
+\begin{itemize}
+	\item scaling
+	\item averaging
+	\item interpolation
+	\item unit conversions
+\end{itemize}
+
+The language will be able to treat appropriately intensive and extensive quantities, for example by calculating the weighted mean when joining two intensive quantities.
+
+\section{Support for different modeling paradigms and frameworks}
+
+Athanasiadis proposed that the DSL should be paradigm agnostic and should also be able to be compatible to several frameworks. Nevertheless this point makes the development of the DSL very complex. Therefore a focus was set on the System Dynamics paradigm.
+
+\section{Account for modeling uncertainty}
+
+The model environment should be able to compute the modeling uncertainty and quality information. This should be achieved with confidence intervals, which solve different sources of uncertainty like:
+
+\begin{itemize}
+	\item random sampling error and biases
+	\item noisy or missing data
+	\item approximation techniques for equation
+\end{itemize}
+
+An example would be the standard error propagation. Two variables x and y are given, their mean and variance are represented by the following tuples (\textmu~x , ?x ) and (\textmu~y , ?y). If their difference is calculated and saved in z, the mean and variance of z is automatically represented in the tuple  (\textmu~x - \textmu~y , ?x + ?y).
+Despite the importance of this feature, it was out of the scope of this project and no further investigations were made.
+
+
+\section{Model transparency and defensibility of results}
+
+One feature of the environment should be model transparency and defensibility  to explain the results of the model. This means that for each model output a history of operations on primal sources, enabled by the enrichment of metadata, must exist.
