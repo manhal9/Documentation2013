@@ -20,12 +20,12 @@ Simile is a visual modelling environment, developed originally for the dynamic m
 
 \emph{Technical implementation:}\\
 \emph{Architecture}\\
-The following diagram shows the main components of Simile, and how they relate to each
+The following diagram \ref{fig:Simile Architecture} shows the main components of Simile, and how they relate to each
 other.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.6\textwidth]{pics/Simile_architecture.png}
+\includegraphics[width=0.6\textwidth]{pics/simile/Simile_architecture.png}
 \caption{Simile Architecture}
 \label{fig:Simile Architecture}	
 \end{figure}
@@ -69,7 +69,7 @@ In fact, Simile has no particular spatial representations built into it, rather 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.5\textwidth]{pics/Simile_symbols.png}
+\includegraphics[width=0.6\textwidth]{pics/simile/Simile_symbols.png}
 \caption{Simile Symbols}
 \label{fig:Simile Symbols}	
 \end{figure}
@@ -100,16 +100,16 @@ The mortality element is used to specify the rule for killing off a member of a 
 \end{itemize}	
 
 In common with other visual modelling environments, Simile models are built in two phases. First, the modeller produces a diagram. Then, the modeller quantifies the model by entering numeric values and equations for the various components of the model.\\
-The diagramming icons are chosen from the Toolbar of simile, the compartment, flow, variable and influence, are concerned with conventional System Dynamics modelling, see the following diagram\\
+The diagramming icons are chosen from the Toolbar of simile, the compartment, flow, variable and influence, are concerned with conventional System Dynamics modelling, shown in Figure \ref{fig:The model diagram}.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.5\textwidth]{pics/account_example.png}
+\includegraphics[width=0.6\textwidth]{pics/simile/account_example.png}
 \caption{the model diagram}
-\label{fig:the model diagram}	
+\label{fig:The model diagram}	
 \end{figure}
 
-System Dynamics (SD) is a common dynamic modelling paradigm within the ecological and environmental research communities. A SD model consists of compartments (stocks, levels, storages) connected by flows, with subsidiary variables for representing parameters and intermediate variables, and influence arrows to show which compartments and variables are used in the calculation of flows and other variables. Essentially, SD is a cosmetic language for defining differential- or difference-equation models: differential equations if the equations are taken to define continuous change; difference equations if the time step is taken to be unity.\footnote{http://www.simulistics.com/index.htm and Book: Re-presenting GIS from Peter Fisher}
+System Dynamics (SD) is a common dynamic modelling paradigm within the ecological and environmental research communities. A SD model consists of compartments (stocks, levels, storages) connected by flows, with subsidiary variables for representing parameters and intermediate variables, and influence arrows to show which compartments and variables are used in the calculation of flows and other variables. Essentially, SD is a cosmetic language for defining differential- or difference-equation models: differential equations if the equations are taken to define continuous change; difference equations if the time step is taken to be unity.\\
 
 \emph{Concern following problems of simile}
 \begin{itemize}
@@ -117,39 +117,146 @@ System Dynamics (SD) is a common dynamic modelling paradigm within the ecologica
 	\item the lack of transparency in models implemented as programs
 	\item and the lack of reuseability of models and submodels
 \end{itemize}
+
+
 	
 \subsection{esmf (Earth System Modeling Framework)}
-\emph{What ESMF is being developed?}\\
-The ESMF is an abbreviation for Earth System Modeling Framework. ESMF is a registered Open Source project for building climate, numerical weather prediction, data assimilation, and other Earth science software applications. These applications are computationally intensive and usually run on supercomputers. The ESMF project is distinguished by community governance and distributed development, and by a diverse customer base that includes modeling groups from universities, major U.S. research centers, the National Weather Service, the Department of Defense, and NASA [01].\\
-ESMF is a component-based software that increases the interoperability of Earth science modeling software developed at different sites and promotes code reuse. The idea of the project is to transform distributed, specialized knowledge and resources into a collaborative, integrated modeling community that operates more efficiently, and is more responsive to societal needs.\footnote{http://en.wikipedia.org/wiki/ESMF and http://www.earthsystemmodeling.org/}
+The ESMF is an abbreviation for Earth System Modeling Framework. ESMF is an Open Source project used at a broad spectrum of research and operational centers, including the National Weather Service, United States Army Air Forces, the Navy, NASA, and universities.\\
+ESMF is used for building and coupling weather, climate, and other Earth science models. This is high-performance software that facilitates interoperability, performance portability, and reuse in numerical weather prediction, climate, data assimilation, and other Earth and space science applications. These applications are computationally intensive and usually run on supercomputers. ESMF includes re-gridding tools for composing complex, coupled modeling systems, and data structures and utilities for developing individual models. The architecture for that is defined by the ESMF team.
+
+\emph{Technical implementation:}\\
+ESMF provides a complete set of Fortran interfaces and some C and C++ interfaces.\\
+ESMF is based on principles of component-based software engineering. It is a reuse-based approach to defining, implementing and composing loosely coupled independent components into systems. In ESMF, components can create and drive other components so that an ocean biogeochemistry component can be part of a larger ocean component.
 
 \emph{Architecture}\\
-The components within an ESMF software application usually represent large-scale physical domains such as the atmosphere, ocean, cryosphere, or land surface. The components can create and drive other components.\\
-The software that connects physical domains is called a coupler in the Earth system modeling community. Couplers are used for taking the outputs from one component and transforming them into the inputs that are needed to run another component. In ESMF, couplers are also software components.
+The view of the framework consists of two layers, an infrastructure of utilities and data structures for creating model components, and a superstructure for coupling them. User code is placed between these two layers, to make calls to the infrastructure libraries and be scheduled and synchronized by the superstructure. A hierarchical combination of superstructure, user code components, and infrastructure are joined together to form an ESMF application. The architecture that resembles a sandwich is shown in Figure \ref{fig:Schematic of the ESMF (sandwich) architecture}.
 
-\emph{Capabilities}\\
-In ESMF, user data are represented in the form of data objects such as grids, fields, and arrays. The user data within a component may be copied or referenced into these ESMF objects.\\
-ESMF can associate metadata with data objects. The metadata, in the form of name and value pairs, is grouped into packages. These metadata packages can be written out in XML and other standard formats.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{pics/esmf/Figure1.png}
+\caption{Schematic of the ESMF (sandwich) architecture}
+\label{fig:Schematic of the ESMF (sandwich) architecture}
+\end{figure}
 
-\emph{Features}\\
-The ESMF differs from other published existing frameworks in the following features:
+The ESMF architecture is scalable, flexible paradigm for building highly complex climate, weather, and related applications from components such as land models, atmospheric models, and data assimilation systems. The ESMF is a way of developing components which can be used in many different user written applications. Model components that adopt ESMF can be used in different contexts with minimal code modification. Furthermore they may be incorporated into other ESMF-based modeling systems within the Earth science community. The components can create and drive other components. In order to take the outputs from one component and transform them into the inputs that are needed to run another component, couplers is used. In ESMF, couplers are also software components.
+
+\emph{Superstructure layer}\\
+The ESMF superstructure is a unifying context. User components are interconnected with this context. The superstructure is the means by which models are converted into components and coupled.\\
+Classes called Gridded Components, Coupler Components, and States are used within the superstructure to achieve this flexibility. Gridded Components are major Earth system model components such as land surface models, ocean models, atmospheric models and sea ice models. Components used for linear algebra manipulations for example in state estimation are also created as Gridded Components.\\
+
+The Figure \ref{fig:Building block for an ESMF application} shows a typical building block for an ESMF application consists of 
+a parent Gridded Component, several child Gridded Components, and a Coupler Component. The parent Gridded Component is called by an application driver. All ESMF Components have initialize, run, and finalize methods. The diagram shows that when the application driver calls initialize on a parent Gridded Component, the call cascades down to all of its children. The result is that the entire (tree) of Components is initialized. The run and finalize methods work on the same principle. In this example a hurricane simulation is built from atmosphere and ocean Gridded Components. An atmosphere-ocean Coupler Component handles the data exchange between the ocean and atmosphere.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{pics/esmf/Figure2.png}
+\caption{Building block for an ESMF application}
+\label{fig:Building block for an ESMF application}
+\end{figure}
+
+User code components under ESMF use special interface objects for Component to Component data exchanges. These objects are of type import State and export State. The methods of these types allows user code components to do things like fill an export State object with data to be shared with other components or query an import State object to determine its contents.\\
+The import State and export State abstractions are designed to be flexible enough so that ESMF does not need to mandate a single format for fields. For example, ESMF does not prescribe the units of quantities exported or imported. However, ESMF does provide mechanisms to describe units, memory layout, and grid coordinates. This allows the ESMF software to support a range of different policies for physical fields.\\
+The Gridded Component class describes a user component that takes in one import State and produces one export State, shown in Figure \ref{fig:Architecture-Components and States}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{pics/esmf/Figure3.png}
+\caption{Architecture-Components and States}
+\label{fig:Architecture-Components and States}
+\end{figure}
+
+\emph{Infrastructure layer}\\
+Infrastructure is a standard software platform for enabling interoperability (developing couplers, ensuring performance portability). The infrastructure layer represents support for Physical Grids, Regridding, Decomposition/composition, Communication, Calendar and Time, I/O, Logging and Profiling. The infrastructure represents data structures and tools (Utilities) that modelers can use within their own code.\\
+
+\emph{Data structures}\\
+Model data is contained in a hierarchy of data structures. The user can reference a Fortran array to an ESMF Array or Field, or retrieve a Fortran array out of an ESMF Array or Field.\\
+
 \begin{itemize}
-	\item Full Fortran 90 interface, partial C/C++ interface
-	\item Fortran 90 Reference Manual and User's Guide
-	\item Runs on most high performance parallel computing platforms, including IBM, many Linux variants, Cray, Compaq, more
-	\item Supports MPI, OpenMP and hybrid user codes
-	\item Free user support
-	\item Active user community[02]
+	\item Array: holds a Fortran array (with other info, such as halo size)
+	\item Field: holds an ESMF Array, an associated Grid, and metadata
+	\item Bundle: collection of Fields on the same Grid bundled together for convenience and data locality. Bundles are intended for performance optimization, by sharing collective communication, IO, and regridding
 \end{itemize}
 
-\emph{Disadvantages}\\
-The ESMF includes user manuals, which should help the beginners to gain entry into the application of the framework. The disadvantage of the manuals is that they are too large and too complex. This complicates the use of the framework.
-Although there is FAQ on the website of ESMF, which answers the most frequently asked questions, but there is not a forum where people can share their questions and answers.
+\emph{Utilities}\\
+\begin{itemize}
+	\item Time Manager Utilities include Calendar, Clock (needed for superstructure), Time, Time interval, Alarm. These can be used independently of other ESMF utilities.
+	\item Configuration Attributes (replaces namelists)
+	\item Message logging (methods for writing error, warning \& informational messages)
+\end{itemize}
 
-\subsection{oms (Object Modeling System)}
-\emph{What is OMS?}\\
-OMS stands for object oriented framework for environmental modeling implemented by java. With OMS, scientists can build scientific model, components efficiently.\\
-It is a collaborative project carried out by US Department of Agriculture and other partner organizations, which are involved in agro-environmental modeling. The goal of OMS is to provide features to the modelers to create inter-operable, scalable models that take full advantage of contemporary computing, management and infrastructure technologies while keeping it simple and intuitive for users.
+\emph{Integration of user model in ESMF}\\
+The steps for converting a user model into an ESMF component are mentioned here:\\
+\begin{enumerate}
+\item Separate code into a new module with initialize, run, and finalize stages
+\item Create register routine
+\begin{itemize}
+	\item Register the initialize, run, and finalize routines
+	\item Make the register routine public
+\end{itemize}
+\item Include framework module
+\end{enumerate}
+
+\emph{Hello World App}\\
+Hello World App in Fortran. For ESMF, Hello World demonstrates a single component driven from one layer above using SetServices() and Gridded Components in practice, shown in Figure \ref{fig:Hello World App in Fortran}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{pics/esmf/Figure4.png}
+\caption{Hello World App in Fortran}
+\label{fig:Hello World App in Fortran}
+\end{figure}
+
+Hello World in Fortran has two source files:\\
+\begin{itemize}
+	\item MyWorldGridCompMod.F90 contains the SetServices(), Initialize(), Run() and Finalize() code.
+	\item hello\_world\_app.F90 contains the top layer app driver.
+\end{itemize}
+
+
+\emph{Properties of the modeling}\\
+In ESMF, user data are represented in the form of data objects such as grids, fields, and arrays. The user data within a component may be copied or referenced into these ESMF objects. ESMF can associate metadata with data objects. The metadata, in the form of name and value pairs, is grouped into packages. These metadata packages can be written out in XML and other standard formats.\\
+
+\subsubsection{Object-based modeling:}
+The ESMF Application Programming Interface (API) is based on the object-oriented programming concept of a class.
+\subsubsection{Flexible data and control flow:}
+Import States, export States, Gridded Components and Coupler Components can be arrayed flexibly within a superstructure layer. Using these constructs, it is possible to configure a set of concurrently executing Gridded Components joined through a single Coupler Component of the style shown in Figure \ref{fig:ESMF supports configurations with a single central Coupler Component}. It is also possible to configure a set of Components with multiple point to point Coupler Components shown in Figure \ref{fig:ESMF configurations with multiple point to point Coupler Components}.  The set of superstructure abstractions allows flexible data flow and control between components. However, components will often use different discrete grids, and time-stepping components may march forward with different time intervals. The ESMF infrastructure layer provides elements to manage this complexity.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{pics/esmf/Figure5.png}
+\caption{ESMF supports configurations with a single central Coupler Component}
+\label{fig:ESMF supports configurations with a single central Coupler Component}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{pics/esmf/Figure6.png}
+\caption{ESMF configurations with multiple point to point Coupler Components}
+\label{fig:ESMF configurations with multiple point to point Coupler Components}
+\end{figure}
+
+\subsubsection{Parallel computing:}
+ESMF runs on most high performance parallel computing platforms, including IBM, many Linux variants, Cray, Compaq, more. It supports Message Passing Interface (MPI), Open Multi-Processing (OpenMP) and hybrid user codes.
+\subsubsection{Sequential execution:}
+ESMF supports sequential mode (Single Program Multiple Datastream) but only very limited concurrent mode (Multiple Program Multiple Datastream) of execution.
+\subsubsection{System Dynamics:}
+The major classes in the ESMF superstructure are Components, which typically represent large pieces of functionality such as models, model couplers, dynamics and physics packages, and States, which are the data structures used to communicate data between Components.
+\subsubsection{Visual modeling:}
+ESMF provides regridding, also called remapping or interpolation. Regridding may be needed when communicating data between Earth system model components such as land and atmosphere, or between different data sets to support operations such as visualization.
+\subsubsection{Modular modeling:}
+ESMF is a software package for building modular, high performance modeling and data assimilation applications.\\
+
+\emph{Pros and Cons}\\
+ESMF provides a toolkit that components use to increase interoperability, improve performance portability and reuse common utility code. Componentization is simplified by dividing user models into initialize, finalize, and run routines. The process is scalable, because additional components are created the same way.\\
+The framework provides a set of portable, robust, performance optimized libraries for data transfers, time management, and other common modeling functions. In order to take advantage of the ESMF infrastructure users should extensively rewrite their codes. Or users may decide to wrap user-written components in ESMF interfaces in order to adopt the ESMF architecture and use framework coupling services.\\
+
+\subsubsection{Single execution mode:}
+It is not expected that a single Gridded Component be able to function in both sequential and concurrent modes, although Gridded Components of different types can be nested. For example, a concurrently called Gridded Component can contain several nested sequential Gridded Components.
+\subsubsection{No Transforms:}
+Components must exchange data through ESMF-State objects. The input data are available at the time the user Component code is called, and data to be returned to another Component are available when that code returns.\\
+
+In a coupled ocean-atmosphere model, for example, the task of replacing one ocean model with another model from a different organization often requires a major redevelopment effort. One of the main goals of the ESMF is to develop a standard interface which will clearly separate model component and couplers, so that interoperable components can be shared and reused.
+
 
 \emph{What is OMS good for?}\\
 OMS supports component based software engineering. Models and components are regarded as objects in OMS. The OMS framework introduces a new style of component modelling. No interface should be implemented. OMS uses Meta data with annotations to specify the input and output. This new kind of annotations makes it easier for modelers to identify the interactions of different components. The modelers will have a better overview of each component. Data flow through the components will be clearer for them. The modelers can profit from this feature to create a large component combining different subcomponents to fulfill a complicated task.\\
@@ -157,6 +264,7 @@ The OMS framework provides simulations features for modelers to test the model c
 OMS provides diagram visualization of the simulation results. Modelers can use this feature to get a deeper insight of the functions of their models.\\
 OMS is designed to support delivery of science relating to agricultural and natural resource management. It is so versatile usable that it can inter-operate with other frameworks of agricultural modeling worldwide.
 
+\section{oms}
 \emph{What is the disadvantages of OMS?}\\
 \begin{itemize}
 	\item Not stable. Many exceptions
