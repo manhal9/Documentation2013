@@ -258,19 +258,116 @@ Components must exchange data through ESMF-State objects. The input data are ava
 In a coupled ocean-atmosphere model, for example, the task of replacing one ocean model with another model from a different organization often requires a major redevelopment effort. One of the main goals of the ESMF is to develop a standard interface which will clearly separate model component and couplers, so that interoperable components can be shared and reused.
 
 
-\emph{What is OMS good for?}\\
-OMS supports component based software engineering. Models and components are regarded as objects in OMS. The OMS framework introduces a new style of component modelling. No interface should be implemented. OMS uses Meta data with annotations to specify the input and output. This new kind of annotations makes it easier for modelers to identify the interactions of different components. The modelers will have a better overview of each component. Data flow through the components will be clearer for them. The modelers can profit from this feature to create a large component combining different subcomponents to fulfill a complicated task.\\
-The OMS framework provides simulations features for modelers to test the model created by them. Simulations are model applications. It consists of model, input data, output management, execution type, execution environment. OMS provides a DSL to run the simulations. DSL is a mini-language that represents constructs of a given domain. With a DSL, simulations can be created from different tools, for example, IDEs, OMS console. With the simulation feature, the modelers are able to evaluate and improve their models.
-OMS provides diagram visualization of the simulation results. Modelers can use this feature to get a deeper insight of the functions of their models.\\
-OMS is designed to support delivery of science relating to agricultural and natural resource management. It is so versatile usable that it can inter-operate with other frameworks of agricultural modeling worldwide.
+\subsection{OMS (Object Modeling System)}
+OMS stands for Object Modeling System designed for environmental modeling. It is a collaborative project carried out by US Department of Agriculture and other partner organizations, which are involved in agro-environmental modeling. The OMS is a component-based software framework for environmental model development, data provisioning, testing, validation and deployment.\\
+It allows the implementation of single or multiple process modules that can be developed or applied for custom-tailored module configurations. With the help of the OMS framework, it is easier and more efficient for scientists to create or modify scientific models, simulate and run the models, analyze and evaluate the results. The OMS framework is an open source software system. Software developers can contribute to the OMS framework by adding new features to the existing framework to improve the performance of the framework.\\
 
-\section{oms}
-\emph{What is the disadvantages of OMS?}\\
+\emph{Technical Implementation}\\
+The OMS framework consists of different software tools, which work together to form a modeling platform. Figure \ref{fig:Details of major OMS framework components} shows the architecture of the OMS framework
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{pics/oms/Figure1.png}
+\caption{Details of major OMS framework components}
+\label{fig:Details of major OMS framework components}
+\end{figure}
+
+The architecture is made up of different layers, each of which has their own functions. In the top layer, there are component libraries, which provide the implementation of specific environmental processes, such as water balance, plant growth, and so on, to describe the behaviors of the environmental phenomena. The component builder utilizes the component libraries and supports the development of scientific components written in Java, FORTRAN, C or C++. The model builder provides the visual integration and configuration of complex models, which are composed of different standalone model components. It maps the output of one component to the input of subsequent components.\\
+With the help of the component builder and model builder, multi-scientific components can be assembled to form a complex model. The OMS framework also provides simulation control over time and space, calibration tools for model analysis and control of data input and output. In the bottom layer, there are various tools for model data evaluation and visualization. The OMS framework provides tools to analyze the statistical data of model output and plot the result with different charts or diagrams for better understanding by the users.\\
+
+\emph{Modeling Procedure of OMS}\\
+OMS supports component based software engineering. Models and components are treated as objects in OMS. An individual component is a web service or a module that encapsulate a set of related functions separated from the surrounding framework environment.The OMS framework introduces a new approach of component modeling. In OMS framework, components are normal classes enriched with Java language level annotations. A normal class consists of fields and methods, which will be supplemented by language level annotations. The annotations are used to find the entry point of data flow and method execution. The computational method of a component will have a tag (@Execute) and data flows are indicated by the tags (@In) and (@Out).\\
+The following example shows parts of a simple component of a bank account, whose financial credit varies year to year.\\
+
+\begin{enumerate}
+\item First we have to import the necessary annotation interfaces.
+\begin{figure}[htbp]
+\includegraphics[width=0.3\textwidth]{pics/oms/Figure2.png}
+\end{figure}
+
+\item We can now use the annotations imported to indicate the data flow.
+\begin{figure}[htbp]
+\includegraphics[width=0.3\textwidth]{pics/oms/Figure3.png}
+\end{figure}
+
+
+\item We can declare a computational function with the tag (@Execute), which processes the data flow.
+\begin{figure}[htbp]
+\includegraphics[width=0.6\textwidth]{pics/oms/Figure4.png}
+\end{figure}
+
+\item The annotation (@Finalize) indicates the framework that the following method will be executed at last to finalize the processing of data flow.
+\begin{figure}[htbp]
+\includegraphics[width=0.3\textwidth]{pics/oms/Figure5.png}
+\end{figure}
+\end{enumerate}
+
+The OMS framework provides simulations features to test and analyze the models, since it makes use of the advantages domain specific language, which are provided by the Groovy programming language. An OMS simulation provides all the necessary resources to run a model and it consists of following parts:
 \begin{itemize}
-	\item Not stable. Many exceptions
-	\item Little help documentations
-	\item Costs much time to make OMS work
+	\item model and component executables, the core component to run and to be tested
+	\item model specific parameter to indicate the input and output of data flow
+	\item some strategies for handling output
+	\item evaluate the model result with statistics or visualization
 \end{itemize}
+
+The following is a part of a simple simulation file to run the model (bank account).
+\begin{enumerate}
+\item We have to import the necessary library
+\begin{figure}[htbp]
+\includegraphics[width=0.5\textwidth]{pics/oms/Figure6.png}
+\end{figure}
+
+\item define the location of the components
+\begin{figure}[htbp]
+\includegraphics[width=0.5\textwidth]{pics/oms/Figure7.png}
+\end{figure}
+
+\item specify the input data for the components
+\begin{figure}[htbp]
+\includegraphics[width=0.4\textwidth]{pics/oms/Figure8.png}
+\end{figure}
+\end{enumerate}
+
+The following figure shows the result after running the simulation.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{pics/oms/Figure9.png}
+\caption{Result after running the model (bank account)}
+\label{fig:Result after running the model (bank account)}
+\end{figure}
+
+OMS also provides diagram visualization features for the simulation results for better understanding and evaluation. The following figure shows the diagram of the status changes of the bank account of different years.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{pics/oms/Figure10.png}
+\caption{Visualization of the status of a bank account}
+\label{fig:Visualization of the status of a bank account}
+\end{figure}
+
+The new version of the OMS framework 3.1 supports multiple threading. Each OMS3 component will be executed in a separate thread, which is managed by the framework runtime. Thread communication happens when data flow from the (@Out) field of one component to the (@In) field of another component is carried out. The component will wait until all its necessary inputs are present and satisfied, then it starts to execute. Since modern computers are equipped with multi-core processors, the multi-threading feature will greatly make use of the power of the processors to improve the performance of the framework.
+
+\emph{Modeling Procedure of OMS}\\
+The OMS framework provides the following benefits for model developers:
+\begin{enumerate}
+\item The OMS framework enables efficient transfer of technology. The OMS framework provides a multi-dimensional platform for integration of various software tools, therefore, it is efficient to transfer of natural resource technology tools to other researchers or users. Due to the common modeling platform and common user interface, the OMS will reduce the start-up time of model development and lower training costs of users.
+
+\item The OMS framework reduces the costs of developing new software technologies. In the past, the development of software components requires huge amount of investment and many scientists. With OMS, model developers can put scientific knowledge into packages as modules in OMS to build new customized software packages at a small fraction of costs.
+
+\item Model developers are able to apply the most suitable science to a specific problem. The OMS provides various software tools, so that model developers can select the most appropriate modules available depending on the concrete natural problems and situations.
+
+\item The OMS framework allows model developers to analyze the natural resource system production efficiently. The OMS provides an integration of software tools for effective analysis of natural resource system production and conservation issues, such as environmental quality, global climate change management, etc.
+
+\item The OMS framework enhances productivity of researchers and scientists. With OMS, model developers can create customized, best-quality software tools. Field scientists will benefit from this advantage, because they can transfer the result directly to other soil and climate. Model developers now focus on the science module implementation, other than graphical user interface, deployment, etc, which helps to increase the productivity and quality. 
+\end{enumerate}
+
+\emph{Disadvantages of OMS}\\
+Although the OMS framework provides various advantages for model developers, it also faces some difficulties.
+\begin{enumerate}
+\item Model developers always lack of motivation to share model code, for example, the component libraries of environmental processes, environmental models, etc. Therefore, model developers have to build their own modules repositories or contribute to the OMS module library, so that they are available for other model developers to do further developments. 
+\item It is hard to predict whether a modular coding structure will be accepted or not. It will take much time for model developers to pay attention to the module design, especially the input and output requirements, module structure, meta data description, and proper use of annotations. In this way, the quality and usability of the module will be guaranteed.
+\item Willingness to share data sets also affects the usability of the OMS framework. The data sets mentioned here are input or output of a model, for example, data for a range of natural resource processes covering different climatic and physio graphic regions across the world. Without these data sets, it is hard to reuse an existing model, since the data is important for comparison and evaluation. Without proper comparison and evaluation, further development of the existing model is almost impossible.
+\end{enumerate}
+
 
 \section{problems}
 \section{declarative modelling}
